@@ -1,0 +1,29 @@
+<%- include("partials/header") -%>
+
+<h1> Home </h1>
+<p><%= startingContent %></p>
+
+<% posts.forEach(function(post) { %>
+
+<% const limitContent = (content, limit = 100) => { %>
+<% const newContent = [];%>
+<% if (content.length > limit) { %>
+<% content.split(' ').reduce((acc, cur) => { %>
+<% if (acc + cur.length <= limit) { %>
+<%  newContent.push(cur); %>
+<% } %>
+<% return acc + cur.length; %>
+<% }, 0); %>
+
+<% return `${newContent.join(' ')} ...`; %>
+<% } %>
+<% return content; %>
+<% } %>
+
+
+<h1> <%= post.title %> </h1>
+<p> <%= limitContent(post.content) %> <a href="posts/<%= post.title %>">Read More</a></p>
+
+<% })%>
+
+<%- include("partials/footer") -%>
